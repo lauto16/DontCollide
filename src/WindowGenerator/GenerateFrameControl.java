@@ -45,7 +45,7 @@ public class GenerateFrameControl {
         for (int row = 0; row < 51; row++) {
             for (int col = 0; col < 51; col++) {
 
-                g.setColor(grid[row][col] == null ? Color.WHITE : grid[row][col]);
+                g.setColor(game.colorGrid[row][col] == null ? Color.WHITE : game.colorGrid[row][col]);
                 g.fillRect(col * game.cellSize, row * game.cellSize, game.cellSize, game.cellSize);
 
                 g.setColor(Color.LIGHT_GRAY);

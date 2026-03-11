@@ -5,28 +5,43 @@ import java.awt.*;
 
 public class Game {
 
-    Color[][] grid;
+    public Color[][] colorGrid;
+    public byte[][] gameGrid;
 
     public Player player1;
     public Player player2;
 
-    private int gridX;
-    private int gridY;
+    private int colorGridX;
+    private int colorGridY;
 
-    private final int player1InitialPosX = 50;
-    private final int player1InitialPosY = 50;
-    private final int player2InitialPosX = 0;
-    private final int player2InitialPosY = 0;
+    private final int player1InitialPosX;
+    private final int player1InitialPosY;
+    private final int player2InitialPosX;
+    private final int player2InitialPosY;
+
     public final int cellSize = 10;
     private final int MOVE_DELAY_MS = 20;
 
-    public Game(int gridX, int gridY) {
-        this.gridX = gridX;
-        this.gridY = gridY;
+    public Game(int colorGridX, int colorGridY) {
+        this.colorGridX = colorGridX;
+        this.colorGridY = colorGridY;
+
+        player1InitialPosX = colorGridX - 1;
+        player1InitialPosY = colorGridY - 1;
+        player2InitialPosX = 0;
+        player2InitialPosY = 0;
 
         this.player1 = new Player(player1InitialPosX, player1InitialPosY, Color.RED);
         this.player2 = new Player(player2InitialPosX, player2InitialPosY, Color.BLUE);
-        grid = new Color[gridX][gridY];
+
+        colorGrid = new Color[colorGridX][colorGridY];
+
+        System.out.println("p1: " + player1.getCoordinates().x + ";" + player1.getCoordinates().y);
+        System.out.println("p2: " + player2.getCoordinates().x + ";" + player2.getCoordinates().y);
+    }
+
+    private void colorTile(int x, int y, Player player){
+        colorGrid[y][x] = player.color;
     }
 
     public void moveUp(Player player) {
@@ -39,6 +54,7 @@ public class Game {
             return;
 
         player.y--;
+        colorTile(x,y,player);
     }
 
     public void moveDown(Player player) {
@@ -51,6 +67,7 @@ public class Game {
             return;
 
         player.y++;
+        colorTile(x,y,player);
     }
 
     public void moveLeft(Player player) {
@@ -63,6 +80,7 @@ public class Game {
             return;
 
         player.x--;
+        colorTile(x,y,player);
     }
 
     public void moveRight(Player player) {
@@ -75,6 +93,7 @@ public class Game {
             return;
 
         player.x++;
+        colorTile(x,y,player);
     }
 
     private boolean canMove(Player player) {
@@ -90,11 +109,11 @@ public class Game {
 
     private boolean isPosibleToMoveThere(int x, int y) {
 
-        if (x > gridX - 1 || x < 0) {
+        if (x > colorGridX - 1 || x < 0) {
             return false;
         }
 
-        if (y > gridY - 1 || y < 0) {
+        if (y > colorGridY - 1 || y < 0) {
             return false;
         }
 
@@ -106,7 +125,7 @@ public class Game {
             return;
         }
 
-        g.setColor(grid[y][x] == null ? player.color : grid[y][x]);
+        g.setColor(colorGrid[y][x] == null ? player.color : colorGrid[y][x]);
         g.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
 
     }
