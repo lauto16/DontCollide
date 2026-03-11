@@ -1,4 +1,4 @@
-package WindowGenerator;
+package KeyMapping;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

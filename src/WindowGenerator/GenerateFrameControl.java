@@ -3,6 +3,7 @@ package WindowGenerator;
 import javax.swing.*;
 import java.awt.*;
 import Game.Game;
+import KeyMapping.*;
 
 public class GenerateFrameControl {
 
