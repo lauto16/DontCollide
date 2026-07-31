@@ -40,8 +40,65 @@ public class Game {
         System.out.println("p2: " + player2.getCoordinates().x + ";" + player2.getCoordinates().y);
     }
 
-    private void colorTile(int x, int y, Player player){
+    private void colorTile(int x, int y, Player player) {
         colorGrid[y][x] = player.color;
+    }
+
+    private boolean isClosed(Player player) {
+
+        Color right;
+        Color left;
+        Color up;
+        Color down;
+
+        if (player.x + 1 >= colorGridX) {
+            right = new Color(0, 0, 0);
+        } else {
+            right = colorGrid[player.y][player.x + 1];
+            if (right == null)
+                right = new Color(0, 0, 0);
+        }
+
+        if (player.x - 1 < 0) {
+            left = new Color(0, 0, 0);
+        } else {
+            left = colorGrid[player.y][player.x - 1];
+            if (left == null)
+                left = new Color(0, 0, 0);
+        }
+
+        if (player.y - 1 < 0) {
+            up = new Color(0, 0, 0);
+        } else {
+            up = colorGrid[player.y - 1][player.x];
+            if (up == null)
+                up = new Color(0, 0, 0);
+        }
+
+        if (player.y + 1 >= colorGridY) {
+            down = new Color(0, 0, 0);
+        } else {
+            down = colorGrid[player.y + 1][player.x];
+            if (down == null)
+                down = new Color(0, 0, 0);
+        }
+
+        System.out.println("Up: " + up);
+        System.out.println("Down: " + down);
+        System.out.println("Left: " + left);
+        System.out.println("Right: " + right);
+
+        return true;
+    }
+
+    private void colorClosedArea(Player player) {
+
+    }
+
+    private void verifyCloseness(Player player) {
+        if (isClosed(player)) {
+            colorClosedArea(player);
+        }
     }
 
     public void moveUp(Player player) {
@@ -54,7 +111,9 @@ public class Game {
             return;
 
         player.y--;
-        colorTile(x,y,player);
+        colorTile(x, y, player);
+
+        verifyCloseness(player);
     }
 
     public void moveDown(Player player) {
@@ -67,7 +126,10 @@ public class Game {
             return;
 
         player.y++;
-        colorTile(x,y,player);
+        colorTile(x, y, player);
+
+        verifyCloseness(player);
+
     }
 
     public void moveLeft(Player player) {
@@ -80,7 +142,9 @@ public class Game {
             return;
 
         player.x--;
-        colorTile(x,y,player);
+        colorTile(x, y, player);
+
+        verifyCloseness(player);
     }
 
     public void moveRight(Player player) {
@@ -93,7 +157,9 @@ public class Game {
             return;
 
         player.x++;
-        colorTile(x,y,player);
+        colorTile(x, y, player);
+
+        verifyCloseness(player);
     }
 
     private boolean canMove(Player player) {
