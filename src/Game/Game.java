@@ -1,5 +1,6 @@
 package Game;
 
+import Player.Coordinates;
 import Player.Player;
 import java.awt.*;
 
@@ -44,63 +45,6 @@ public class Game {
         colorGrid[y][x] = player.color;
     }
 
-    private boolean isClosed(Player player) {
-
-        Color right;
-        Color left;
-        Color up;
-        Color down;
-
-        if (player.x + 1 >= colorGridX) {
-            right = new Color(0, 0, 0);
-        } else {
-            right = colorGrid[player.y][player.x + 1];
-            if (right == null)
-                right = new Color(0, 0, 0);
-        }
-
-        if (player.x - 1 < 0) {
-            left = new Color(0, 0, 0);
-        } else {
-            left = colorGrid[player.y][player.x - 1];
-            if (left == null)
-                left = new Color(0, 0, 0);
-        }
-
-        if (player.y - 1 < 0) {
-            up = new Color(0, 0, 0);
-        } else {
-            up = colorGrid[player.y - 1][player.x];
-            if (up == null)
-                up = new Color(0, 0, 0);
-        }
-
-        if (player.y + 1 >= colorGridY) {
-            down = new Color(0, 0, 0);
-        } else {
-            down = colorGrid[player.y + 1][player.x];
-            if (down == null)
-                down = new Color(0, 0, 0);
-        }
-
-        System.out.println("Up: " + up);
-        System.out.println("Down: " + down);
-        System.out.println("Left: " + left);
-        System.out.println("Right: " + right);
-
-        return true;
-    }
-
-    private void colorClosedArea(Player player) {
-
-    }
-
-    private void verifyCloseness(Player player) {
-        if (isClosed(player)) {
-            colorClosedArea(player);
-        }
-    }
-
     public void moveUp(Player player) {
         int y = player.y - 1;
         int x = player.x;
@@ -112,8 +56,9 @@ public class Game {
 
         player.y--;
         colorTile(x, y, player);
+        player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
+        System.out.println(player.getIsSafe());
 
-        verifyCloseness(player);
     }
 
     public void moveDown(Player player) {
@@ -127,9 +72,8 @@ public class Game {
 
         player.y++;
         colorTile(x, y, player);
-
-        verifyCloseness(player);
-
+        player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
+        System.out.println(player.getIsSafe());
     }
 
     public void moveLeft(Player player) {
@@ -143,8 +87,8 @@ public class Game {
 
         player.x--;
         colorTile(x, y, player);
-
-        verifyCloseness(player);
+        player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
+        System.out.println(player.getIsSafe());
     }
 
     public void moveRight(Player player) {
@@ -158,8 +102,8 @@ public class Game {
 
         player.x++;
         colorTile(x, y, player);
-
-        verifyCloseness(player);
+        player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
+        System.out.println(player.getIsSafe());
     }
 
     private boolean canMove(Player player) {
