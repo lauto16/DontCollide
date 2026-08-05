@@ -53,9 +53,7 @@ public class Game {
 
         player.y--;
         colorTile(x, y, player);
-        player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
-        player.sumOneToTilesPainted();
-
+        player.postMoveActions(colorGrid, colorGridX, colorGridY);
     }
 
     public void moveDown(Player player) {
@@ -69,8 +67,7 @@ public class Game {
 
         player.y++;
         colorTile(x, y, player);
-        player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
-        player.sumOneToTilesPainted();
+        player.postMoveActions(colorGrid, colorGridX, colorGridY);
     }
 
     public void moveLeft(Player player) {
@@ -84,8 +81,7 @@ public class Game {
 
         player.x--;
         colorTile(x, y, player);
-        player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
-        player.sumOneToTilesPainted();
+        player.postMoveActions(colorGrid, colorGridX, colorGridY);
     }
 
     public void moveRight(Player player) {
@@ -99,8 +95,7 @@ public class Game {
 
         player.x++;
         colorTile(x, y, player);
-        player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
-        player.sumOneToTilesPainted();
+        player.postMoveActions(colorGrid, colorGridX, colorGridY);
     }
 
     private boolean canMove(Player player) {

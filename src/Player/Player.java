@@ -22,6 +22,11 @@ public class Player {
         this.tilesPainted++;
     }
 
+    public void postMoveActions(Color[][] colorGrid, int colorGridX, int colorGridY){
+        setPlayerSafe(this, colorGridX, colorGridY, colorGrid);
+        this.sumOneToTilesPainted();
+    }
+
     public Coordinates getCoordinates() {
         return new Coordinates(this.x, this.y);
     }
