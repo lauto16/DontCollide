@@ -10,10 +10,16 @@ public class Player {
     public Coordinates dynamicInitPos;
     public boolean isSafe = true;
 
+    public int tilesPainted = 1;
+
     public Player(int x, int y, Color color) {
         this.x = x;
         this.y = y;
         this.color = color;
+    }
+
+    public void sumOneToTilesPainted(){
+        this.tilesPainted++;
     }
 
     public Coordinates getCoordinates() {
@@ -27,7 +33,7 @@ public class Player {
         this.isSafe = safe;
     }
 
-    public boolean getIsSafe(){
+    public boolean getIsSafe() {
         return this.isSafe;
     }
 
@@ -41,7 +47,7 @@ public class Player {
         Color upRight;
         Color downLeft;
         Color downRight;
-    
+
         if (player.x + 1 >= colorGridX) {
             right = new Color(0, 0, 0);
         } else {
@@ -49,7 +55,7 @@ public class Player {
             if (right == null)
                 right = new Color(0, 0, 0);
         }
-    
+
         if (player.x - 1 < 0) {
             left = new Color(0, 0, 0);
         } else {
@@ -57,7 +63,7 @@ public class Player {
             if (left == null)
                 left = new Color(0, 0, 0);
         }
-    
+
         if (player.y - 1 < 0) {
             up = new Color(0, 0, 0);
         } else {
@@ -65,7 +71,7 @@ public class Player {
             if (up == null)
                 up = new Color(0, 0, 0);
         }
-    
+
         if (player.y + 1 >= colorGridY) {
             down = new Color(0, 0, 0);
         } else {
@@ -73,7 +79,7 @@ public class Player {
             if (down == null)
                 down = new Color(0, 0, 0);
         }
-    
+
         if (player.x - 1 < 0 || player.y - 1 < 0) {
             upLeft = new Color(0, 0, 0);
         } else {
@@ -81,7 +87,7 @@ public class Player {
             if (upLeft == null)
                 upLeft = new Color(0, 0, 0);
         }
-    
+
         if (player.x + 1 >= colorGridX || player.y - 1 < 0) {
             upRight = new Color(0, 0, 0);
         } else {
@@ -89,7 +95,7 @@ public class Player {
             if (upRight == null)
                 upRight = new Color(0, 0, 0);
         }
-    
+
         if (player.x - 1 < 0 || player.y + 1 >= colorGridY) {
             downLeft = new Color(0, 0, 0);
         } else {
@@ -97,7 +103,7 @@ public class Player {
             if (downLeft == null)
                 downLeft = new Color(0, 0, 0);
         }
-    
+
         if (player.x + 1 >= colorGridX || player.y + 1 >= colorGridY) {
             downRight = new Color(0, 0, 0);
         } else {
@@ -105,21 +111,21 @@ public class Player {
             if (downRight == null)
                 downRight = new Color(0, 0, 0);
         }
-    
+
         int sumRed = up.getRed() + down.getRed() + left.getRed() + right.getRed()
                 + upLeft.getRed() + upRight.getRed() + downLeft.getRed() + downRight.getRed();
-    
+
         int sumBlue = up.getBlue() + down.getBlue() + left.getBlue() + right.getBlue()
                 + upLeft.getBlue() + upRight.getBlue() + downLeft.getBlue() + downRight.getBlue();
-    
-        // 5 tiles = 5 * 255 = 1275
-        if (player.color == Color.BLUE && sumBlue >= 1275) {
+
+        // 8 tiles = 8 * 255 = 2040
+        if (player.color == Color.BLUE && sumBlue >= 2040) {
             this.setIsSafe(true);
         } else if (player.color == Color.BLUE) {
             this.setIsSafe(false);
         }
-    
-        if (player.color == Color.RED && sumRed >= 1275) {
+
+        if (player.color == Color.RED && sumRed >= 2040) {
             this.setIsSafe(true);
         } else if (player.color == Color.RED) {
             this.setIsSafe(false);

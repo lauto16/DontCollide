@@ -1,6 +1,5 @@
 package Game;
 
-import Player.Coordinates;
 import Player.Player;
 import java.awt.*;
 
@@ -37,8 +36,6 @@ public class Game {
 
         colorGrid = new Color[colorGridX][colorGridY];
 
-        System.out.println("p1: " + player1.getCoordinates().x + ";" + player1.getCoordinates().y);
-        System.out.println("p2: " + player2.getCoordinates().x + ";" + player2.getCoordinates().y);
     }
 
     private void colorTile(int x, int y, Player player) {
@@ -57,7 +54,7 @@ public class Game {
         player.y--;
         colorTile(x, y, player);
         player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
-        System.out.println(player.getIsSafe());
+        player.sumOneToTilesPainted();
 
     }
 
@@ -73,7 +70,7 @@ public class Game {
         player.y++;
         colorTile(x, y, player);
         player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
-        System.out.println(player.getIsSafe());
+        player.sumOneToTilesPainted();
     }
 
     public void moveLeft(Player player) {
@@ -88,7 +85,7 @@ public class Game {
         player.x--;
         colorTile(x, y, player);
         player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
-        System.out.println(player.getIsSafe());
+        player.sumOneToTilesPainted();
     }
 
     public void moveRight(Player player) {
@@ -103,7 +100,7 @@ public class Game {
         player.x++;
         colorTile(x, y, player);
         player.setPlayerSafe(player, colorGridX, colorGridY, colorGrid);
-        System.out.println(player.getIsSafe());
+        player.sumOneToTilesPainted();
     }
 
     private boolean canMove(Player player) {
